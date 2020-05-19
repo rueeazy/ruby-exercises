@@ -1,4 +1,4 @@
-require 'connect_four.rb'
+require 'game.rb'
 
 describe Board do
     describe "#display_board" do
