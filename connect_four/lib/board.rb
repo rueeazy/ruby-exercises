@@ -21,4 +21,41 @@ class Board
         puts "   1      2      3      4      5      6      7"
         puts "\n"
     end
+
+    def victory?
+        horizontal_victory? || vertical_victory? || 
+    diagonal_victory_down? || diagonal_victory_up?
+    end
+
+    def vertical_victory?(board = @board)
+        board.each do |column|
+            column.each_index do |i, array = []|
+                4.times {|n| array << column[i + n]}
+                return true if connected?(array)
+            end
+        end
+        false
+    end
+
+    def horizontal_victory?
+        vertical_victory?(board.transpose)
+    end
+
+    def diagonal_victory_down?(board = @board)
+        board.each_index do |c|
+            board[c].each_index do |r, array = []|
+                4.times {|n| array << board[c+n][r + n] if board[c + n]}
+                return true if connected?(array)
+            end
+        end
+        false
+    end
+
+    def diagonal_victory_up?(board = @board)
+        diagonal_victory_down?(board.map(&:reverse))
+    end
+
+    def connected?(array)
+        array.size == 4 && array.uniq.size == 1 && array[0] != "\u{26AB}"
+    end
 end

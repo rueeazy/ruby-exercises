@@ -41,13 +41,15 @@ class Game
             pick_space(@player_one)
             insert(@player_one)
             @game.display_board
-           #break if check_winner?
+            game_over(@player_one) if @game.victory?
 
             pick_space(@player_two)
             insert(@player_two)
             @game.display_board
-            #break if check_winner?
+            game_over(@player_two) if @game.victory?
         end
+        puts "It's a draw!"
+        exit!
     end
 
     def pick_space(player)
@@ -74,6 +76,12 @@ class Game
             end
         end 
     end
+
+    def game_over(player)
+        puts "#{player.name} won!"
+        exit!
+    end
  end
 
 #game = Game.new
+#game.game_start
